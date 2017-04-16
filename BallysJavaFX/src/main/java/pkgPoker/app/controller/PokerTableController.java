@@ -15,6 +15,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,16 +102,29 @@ public class PokerTableController implements Initializable {
 	public void GetGameState() {
 	}
 
-	//TODO: Lab #4 - Complete (fix) setiPlayerPosition
-	public void btnSitLeave_Click(ActionEvent event) {
 
-		// Set the PlayerPosition in the Player
+	public void btnSitLeave_Click(ActionEvent event) {
+		Button btnSitLeave = (Button) event.getSource();
+		int playerposition = 0;
+		if (((Toggle) btnSitLeave).isSelected()){
+			switch (btnSitLeave.getId().toString()) {
+			case "btnPos1SitLeave":
+				mainApp.getPlayer().setiPlayerPosition(1);
+				break;
+			case "btnPos2SitLeave":
+				mainApp.getPlayer().setiPlayerPosition(2);
+				break;
+		}
+		}
+		else{
+			playerposition = 0;
+		}
+
+
 		mainApp.getPlayer().setiPlayerPosition(1);
 
-		// Build an Action message
 		Action act = new Action(eAction.Sit, mainApp.getPlayer());
 
-		// Send the Action to the Hub
 		mainApp.messageSend(act);
 	}
 
