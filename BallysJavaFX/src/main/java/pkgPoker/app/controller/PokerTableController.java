@@ -27,6 +27,7 @@ import pkgPokerEnum.eAction;
 import pkgPokerEnum.eGame;
 import pkgPokerBLL.Action;
 import pkgPokerBLL.GamePlay;
+import pkgPokerBLL.Player;
 import pkgPokerBLL.Table;
 
 public class PokerTableController implements Initializable {
@@ -169,10 +170,58 @@ public class PokerTableController implements Initializable {
 
 	}
 
-	//TODO: Lab #4 Complete the implementation
 	public void Handle_TableState(Table HubPokerTable) {
+		lblPos1Name.setText("");
+		lblPos2Name.setText("");
 
+		btnPos1SitLeave.setVisible(true);
+		btnPos2SitLeave.setVisible(true);
+
+		btnPos1SitLeave.setText(btnPos1SitLeave.isSelected() ? "Leave" : "Sit");
+		btnPos2SitLeave.setText(btnPos2SitLeave.isSelected() ? "Leave" : "Sit");
+
+		btnStartGame.setDisable(HubPokerTable.getHashPlayers().size() > 0 ? false : true);
+
+		FadeButton(btnStartGame);
+
+		Iterator iterate = HubPokerTable.getHashPlayers().entrySet().iterator();
+
+		while (iterate.hasNext()) {
+			Map.Entry pair = (Map.Entry) iterate.next();
+			Player player = (Player) pair.getValue();
+			switch (player.getiPlayerPosition()) {
+
+			case 1:
+
+				if (player.getPlayerID().equals(mainApp.getPlayer().getPlayerID())) {
+
+					btnPos1SitLeave.setVisible(true);
+					btnPos2SitLeave.setVisible(false);
+
+				} else {
+					btnPos1SitLeave.setVisible(false);
+				}
+
+				lblPos1Name.setText(player.getPlayerName().toString());
+				break;
+
+			case 2:
+				if (player.getPlayerID().equals(mainApp.getPlayer().getPlayerID())) {
+					btnPos1SitLeave.setVisible(false);
+					btnPos2SitLeave.setVisible(true);
+
+				} else {
+					btnPos2SitLeave.setVisible(false);
+				}
+
+				lblPos2Name.setText(player.getPlayerName().toString());
+				break;
+				}
+
+		}
 	}
+
+
 
 	public void Handle_GameState(GamePlay HubPokerGame) {
 		
