@@ -84,12 +84,6 @@ public class PokerHub extends Hub {
 				// Set the order of players
 
 			case Draw:
-
-				//TODO Lab #5 -	Draw card(s) for each player in the game.
-				//TODO Lab #5 -	Make sure to set the correct visiblity
-				//TODO Lab #5 -	Make sure to account for community cards
-
-				//TODO Lab #5 -	Check to see if the game is over
 				HubGamePlay.isGameOver();
 				
 				resetOutput();
